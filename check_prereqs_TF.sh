@@ -2,6 +2,8 @@
 # Author: Andy Hawkins
 # Date: 5 Jun 2019
 # Version: 0.1
+# To do?
+# Just install packages that are missing or lower version than required?
 
 LIST="curl bash iptables-services net-tools ntp nscd openssh-clients openssh-server postfix python rpm-build rsync sudo sysstat wget yum-utils"
 INPUT=./vers_driver
@@ -10,7 +12,7 @@ INPUT=./vers_driver
 
 tput clear
 
-cat << EOF >./vers_driver
+cat << EOF > $INPUT
 curl 7.29
 bash 4.0
 iptables-services 1.4.21
@@ -37,7 +39,8 @@ do
 	else
 		echo "Package `rpm -q $name` " > /dev/null @>&1
 		vers=`rpm -q $name` 
-		req=`awk /$name/'{print $2}' $INPUT`
+		# Will adapt to do more effective pattern matching - to only alert when too low
+		#req=`awk /$name/'{print $2}' $INPUT`
 		#if [ $req > $vers ]; then
 		#	echo "$name is  at a supported version, you're good"
 		#else
